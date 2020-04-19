@@ -4,27 +4,27 @@
     {
         public static void Sort(int[] array)
         {
-            if (array != null && array.Length != 0)
+            if (array == null || array.Length <= 0) return;
+
+            int t;
+            for (int i = 0; i < array.Length; i++)
             {
-                int t;
-                for (int i = 0; i < array.Length; i++)
+                for (int j = i + 1; j < array.Length; j++)
                 {
-                    for (int j = i + 1; j < array.Length; j++)
+                    if (array[j] < array[i])
                     {
-                        if (array[j] < array[i])
-                        {
-                            t = array[i];
-                            array[i] = array[j];
-                            array[j] = t;
-                        }
+                        t = array[i];
+                        array[i] = array[j];
+                        array[j] = t;
                     }
                 }
             }
+
         }
 
         public static void Reverse(int[] array)
         {
-            if (array != null && array.Length != 0)
+            if (array == null || array.Length <= 0) return;
             {
                 int t;
                 for (int i = 0; i < array.Length / 2; i++)
