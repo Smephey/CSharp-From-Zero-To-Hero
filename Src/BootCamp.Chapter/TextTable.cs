@@ -1,4 +1,6 @@
-﻿namespace BootCamp.Chapter
+﻿using System.Linq;
+
+namespace BootCamp.Chapter
 {
     /// <summary>
     /// Part 1.
@@ -34,7 +36,22 @@
         /// </summary>
         public static string Build(string message, int padding)
         {
+            // (Padding * 2) + 1 Vertical
+            string rowLine = BuildRowLine(message, padding);
+
+            if (!string.IsNullOrWhiteSpace(message))
+
+            {
+                return $"+{rowLine}+\r\n|{message}|\r\n+{rowLine}+\r\n";
+            }
+
             return "";
+        }
+
+        private static string BuildRowLine(string message, int padding)
+        {
+            string rowLine = string.Concat(Enumerable.Repeat('-', message.Length));
+            return rowLine;
         }
     }
 }
