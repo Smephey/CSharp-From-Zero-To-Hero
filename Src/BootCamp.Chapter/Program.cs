@@ -4,12 +4,12 @@
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine(TextTable.Build("Hello\r\nWorld!\r\nAnother\r\nDay", 3));
+            TextTable.Build("Hello\r\nWorld!\r\nAnother\r\nDay", 3);
             // Print each of the statistical output using Text Table with padding 3:
-            // - FindHighestBalanceEver
-            // - FindPersonWithBiggestLoss
-            // - FindRichestPerson
-            // - FindMostPoorPerson
+            TextTable.Build(BalanceStats.FindHighestBalanceEver(PeoplesBalances.Balances), 3);
+            //FindPersonWithBiggestLoss
+            //FindRichestPerson
+            //FindMostPoorPerson
         }
     }
 }

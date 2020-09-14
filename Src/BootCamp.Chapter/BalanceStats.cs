@@ -1,4 +1,6 @@
-﻿namespace BootCamp.Chapter
+﻿using System.Runtime.InteropServices.ComTypes;
+
+namespace BootCamp.Chapter
 {
     public static class BalanceStats
     {
@@ -7,6 +9,10 @@
         /// </summary>
         public static string FindHighestBalanceEver(string[] peopleAndBalances)
         {
+            for (var i = 0; i < peopleAndBalances.Length; i++)
+            {
+                System.Console.WriteLine(peopleAndBalances[i]);
+            }
             return "";
         }
 

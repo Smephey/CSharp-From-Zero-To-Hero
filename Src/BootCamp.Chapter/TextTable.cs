@@ -31,6 +31,8 @@ namespace BootCamp.Chapter
             sb.Append(Environment.NewLine);
             var boxedMessage = sb.ToString();
 
+            Console.WriteLine(boxedMessage);
+
             return boxedMessage;
 
         }
