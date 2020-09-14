@@ -55,7 +55,7 @@ namespace BootCamp.Chapter
             {
                 sb.Append(Environment.NewLine);
                 sb.Append("|");
-                sb.Append(allWords[i].PadLeft(longestWordLength + padding).PadRight(horizontalLineWidth));
+                sb.Append(allWords[i].PadLeft(allWords[i].Length + padding).PadRight(horizontalLineWidth));
                 sb.Append("|");
             }
             BuildPadding(padding, horizontalLineWidth, sb);

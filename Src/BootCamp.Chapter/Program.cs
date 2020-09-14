@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            TextTable.Build("Hello\r\nWorld!\r\nAnother\r\nDay", 1);
+            System.Console.WriteLine(TextTable.Build("Hello\r\nWorld!\r\nAnother\r\nDay", 3));
             // Print each of the statistical output using Text Table with padding 3:
             // - FindHighestBalanceEver
             // - FindPersonWithBiggestLoss
