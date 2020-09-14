@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 
 namespace BootCamp.Chapter
 {
@@ -16,7 +19,7 @@ namespace BootCamp.Chapter
            
          Input: $"Hello{Environment.NewLine}World!", 0
            +------+
-           |Hello |
+           |/Hello |
            |World!|
            +------+
            
@@ -36,22 +39,67 @@ namespace BootCamp.Chapter
         /// </summary>
         public static string Build(string message, int padding)
         {
-            // (Padding * 2) + 1 Vertical
-            string rowLine = BuildRowLine(message, padding);
+            if (string.IsNullOrEmpty(message)) return "";
 
-            if (!string.IsNullOrWhiteSpace(message))
+            StringBuilder sb = new StringBuilder();
 
+            //determine message size
+            var allWords = SplitWords(message);
+            var longestWordLength = FindLongestWordLength(allWords);
+            var horizontalLineWidth = longestWordLength + 2 * padding;
+
+            //build box
+            BuildHorizontalLine(horizontalLineWidth, sb);
+            BuildPadding(padding, horizontalLineWidth, sb);
+            for (var i = 0; i < allWords.Length; i++)
             {
-                return $"+{rowLine}+\r\n|{message}|\r\n+{rowLine}+\r\n";
+                sb.Append(Environment.NewLine);
+                sb.Append("|");
+                sb.Append(allWords[i].PadLeft(longestWordLength + padding).PadRight(horizontalLineWidth));
+                sb.Append("|");
             }
+            BuildPadding(padding, horizontalLineWidth, sb);
 
-            return "";
+            sb.Append(Environment.NewLine);
+            BuildHorizontalLine(horizontalLineWidth, sb);
+            sb.Append(Environment.NewLine);
+            var boxedMessage = sb.ToString();
+
+            return boxedMessage;
+
         }
 
-        private static string BuildRowLine(string message, int padding)
+        private static void BuildHorizontalLine(int length, StringBuilder sb)
         {
-            string rowLine = string.Concat(Enumerable.Repeat('-', message.Length));
-            return rowLine;
+            sb.Append('+');
+            sb.Append('-', length);
+            sb.Append('+');
+        }
+
+        private static void BuildPadding(int padding, int width, StringBuilder sb)
+        {
+            for (var i = 0; i < padding; i++)
+            {
+                sb.Append(Environment.NewLine);
+                sb.Append("|".PadRight(width + 1));
+                sb.Append("|");
+            }
+        }
+
+        private static string[] SplitWords(string message)
+        {
+            var words = message.Split("\r\n");
+            return words;
+        }
+
+        private static int FindLongestWordLength(string[] words)
+        {
+            string longestWord = "";
+            for (var i = 0; i < words.Length; i++)
+            {
+                if (words[i].Length > longestWord.Length) longestWord = words[i];
+            }
+            return longestWord.Length;
         }
     }
 }
