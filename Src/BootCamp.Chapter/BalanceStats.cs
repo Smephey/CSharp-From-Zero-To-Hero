@@ -1,4 +1,7 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using System;
+using System.Globalization;
+using System.Runtime.InteropServices.ComTypes;
+using System.Xml;
 
 namespace BootCamp.Chapter
 {
@@ -9,11 +12,30 @@ namespace BootCamp.Chapter
         /// </summary>
         public static string FindHighestBalanceEver(string[] peopleAndBalances)
         {
-            for (var i = 0; i < peopleAndBalances.Length; i++)
+            if (peopleAndBalances.Length <= 0) return "N/A.";
+
+            var name = "";
+            var highestBalance = 0;
+
+
+            foreach (var personAndBalances in peopleAndBalances)
             {
-                System.Console.WriteLine(peopleAndBalances[i]);
+                var splitFields = personAndBalances.Split(", ");
+
+                for (var i = 0; i < splitFields.Length; i++)
+                {
+                    var balance = ParseNumber(splitFields[i]);
+                    if (balance > highestBalance)
+                    {
+                        highestBalance = balance;
+                        name = splitFields[0];
+                    }
+                }
             }
-            return "";
+
+            //"Thor had the most money ever. ¤1002.
+            var convertedBalance = ConvertToCurrency(highestBalance);
+            return $"{name} had the most money ever. {convertedBalance}.";
         }
 
         /// <summary>
@@ -38,6 +60,27 @@ namespace BootCamp.Chapter
         public static string FindMostPoorPerson(string[] peopleAndBalances)
         {
             return "";
+        }
+
+        private static int ParseNumber(string input)
+        {
+            bool isNumber = int.TryParse(input, out int number);
+            if (!isNumber)
+            {
+                return 0;
+            }
+            else
+            {
+                return number;
+            }
+        }
+
+        private static string ConvertToCurrency(int number)
+        {
+            var customCulture = CultureInfo.CreateSpecificCulture("");
+            customCulture.NumberFormat.CurrencyGroupSeparator = "";
+
+            return string.Format(customCulture, "{0:C0}", number);
         }
     }
 }
